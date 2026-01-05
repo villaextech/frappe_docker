@@ -193,11 +193,39 @@ If your changes (logo, text, etc.) are not appearing, try these steps in order:
 
 ### Committing Your Changes
 
+#### For frappe_docker Repository (Docker Config)
+
 ```bash
-cd /workspace/development/frappe-bench/apps/erpnext
+# In your frappe_docker directory
 git add .
 git commit -m "Description of your changes"
+git push origin <your-branch-name>
 ```
+
+#### For ERPNext Repository (App Code)
+
+```bash
+# Inside the container
+cd /workspace/development/frappe-bench/apps/erpnext
+
+# Check what changed
+git status
+
+# Create a branch if not already on one
+git checkout -b my-custom-changes
+
+# Add and commit changes
+git add .
+git commit -m "Description of your changes"
+
+# Push to your GitHub fork
+git push origin my-custom-changes
+```
+
+**Note:** Workspace database changes (like `is_hidden` flag) are not in git files. To persist them:
+1. Export workspaces as JSON: `bench --site <site> export-doc Workspace "Workspace Name"`
+2. Commit the exported JSON files
+3. Or create a migration script that applies changes on deployment
 
 ## Resuming Work After Shutdown
 
